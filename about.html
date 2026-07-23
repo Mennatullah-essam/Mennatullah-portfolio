@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me — Menna's Visual Home</title>
+<meta name="description" content="Step inside the room that built me — a walk through the desk, the corkboard, the shelf, and the corner where it all happens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,900&family=DM+Mono:wght@400;500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#18161c; --charcoal-raised:#221f27; --charcoal-line: rgba(247,243,237,0.09);
+    --ink:#f7f3ed; --ink-soft:#b8b3bd;
+    --lavender:#b6a6e8; --mint:#9bd9c6; --blush:#f0b7c3; --ember:#e8ab5e;
+    --shadow: 0 20px 60px rgba(0,0,0,0.45);
+    --bg: var(--charcoal); --bg-raised: var(--charcoal-raised);
+    --text: var(--ink); --text-soft: var(--ink-soft); --line: var(--charcoal-line);
+    --font-display:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --font-mono:'DM Mono','SFMono-Regular',Consolas,monospace;
+  }
+  html[data-theme="light"]{
+    --bg:#f7f3ed; --bg-raised:#ffffff; --text:#221f27; --text-soft:#5c5763;
+    --line: rgba(34,31,39,0.10); --shadow: 0 20px 50px rgba(34,31,39,0.10);
+  }
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:var(--font-display); -webkit-font-smoothing:antialiased; overflow-x:hidden; transition:background .5s ease,color .5s ease; }
+  a{ color:inherit; }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--mint); outline-offset:3px; border-radius:4px; }
+  .skip-link{ position:absolute; left:1rem; top:-4rem; z-index:900; background:var(--mint); color:#18161c; padding:.7rem 1.2rem; border-radius:.5rem; font-weight:600; text-decoration:none; transition:top .2s ease; }
+  .skip-link:focus{ top:1rem; }
+  .eyebrow{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mint); display:inline-flex; align-items:center; gap:.6rem; margin:0 0 .8rem; }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--mint); }
+
+  /* ============ NAV ============ */
+  header.site-nav{ position:fixed; top:0; left:0; right:0; z-index:120; display:flex; align-items:center; justify-content:space-between;
+    padding:1.3rem clamp(1.25rem,5vw,3.5rem); background:color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+    opacity:0; transform:translateY(-12px); transition:opacity .7s ease .2s, transform .7s ease .2s, background .5s ease, border-color .5s ease; }
+  header.site-nav.in{ opacity:1; transform:translateY(0); }
+  .brand{ font-weight:700; font-size:1.05rem; letter-spacing:-0.01em; text-decoration:none; display:flex; align-items:center; gap:.6rem; }
+  .brand .dot{ color:var(--mint); }
+  .brand .back-arrow{ width:16px; height:16px; opacity:.7; }
+  .nav-right{ display:flex; align-items:center; gap:.7rem; }
+  .home-link{ font-family:var(--font-mono); font-size:.78rem; color:var(--text-soft); text-decoration:none; border:1px solid var(--line); padding:.5rem .9rem; border-radius:2rem; transition:color .2s ease, border-color .2s ease; }
+  .home-link:hover{ color:var(--text); border-color:var(--text-soft); }
+  .theme-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:var(--bg-raised); display:flex; align-items:center; justify-content:center; color:var(--text); transition:transform .3s ease, border-color .3s ease; flex:none; }
+  .theme-toggle:hover{ transform:rotate(15deg); border-color:var(--mint); }
+  .theme-toggle svg{ width:18px; height:18px; }
+  .icon-sun{ display:none; }
+  html[data-theme="light"] .icon-moon{ display:none; }
+  html[data-theme="light"] .icon-sun{ display:block; }
+
+  /* ============ DOOR OPENING INTRO ============ */
+  #doorIntro{ position:fixed; inset:0; z-index:999; display:flex; perspective:1600px; background:#0d0b10; }
+  #doorIntro .panel{ width:50%; height:100%; background:
+      linear-gradient(90deg, rgba(0,0,0,.35), rgba(0,0,0,0) 12%, rgba(0,0,0,0) 88%, rgba(0,0,0,.35)),
+      repeating-linear-gradient(90deg, #3a2c22 0 3px, #35281f 3px 6px), linear-gradient(180deg,#4a3627,#2c2118);
+    box-shadow: inset 0 0 80px rgba(0,0,0,.5); transition: transform 1.15s cubic-bezier(.4,0,.2,1); }
+  #doorIntro .panel.left{ transform-origin:left center; border-right:2px solid rgba(0,0,0,.4); }
+  #doorIntro .panel.right{ transform-origin:right center; border-left:2px solid rgba(0,0,0,.4); }
+  #doorIntro .knob{ position:absolute; top:50%; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #e8c88a, #8a6a34); }
+  #doorIntro .panel.left .knob{ right:14px; }
+  #doorIntro .panel.right .knob{ left:14px; }
+  #doorIntro.opening .panel.left{ transform: rotateY(-108deg); }
+  #doorIntro.opening .panel.right{ transform: rotateY(108deg); }
+  #doorIntro .glow{ position:absolute; inset:0; background:radial-gradient(circle at 50% 55%, rgba(232,171,94,.35), transparent 60%); opacity:0; transition:opacity 1s ease .3s; pointer-events:none; }
+  #doorIntro.opening .glow{ opacity:1; }
+  #doorIntro .door-caption{ position:absolute; bottom:3rem; left:0; right:0; text-align:center; color:var(--ink-soft); font-family:var(--font-mono); font-size:.85rem; letter-spacing:.05em; opacity:.9; transition:opacity .5s ease; }
+  #doorIntro.opening .door-caption{ opacity:0; }
+  #doorIntro.hide{ visibility:hidden; opacity:0; transition:opacity .5s ease .9s, visibility 0s 1.4s; }
+  #introSkip{ position:absolute; bottom:2rem; right:2rem; z-index:2; background:none; border:1px solid rgba(247,243,237,.25); color:var(--ink-soft); padding:.5rem 1rem; border-radius:2rem; font-size:.78rem; font-family:var(--font-mono); letter-spacing:.05em; }
+  #introSkip:hover{ color:var(--ink); border-color:var(--ink-soft); }
+
+  main{ opacity:0; transition:opacity .8s ease; }
+  main.ready{ opacity:1; }
+
+  /* ============ NOTE SCENE (opening handwritten note) ============ */
+  .note-scene{ position:relative; min-height:100vh; min-height:100svh; display:flex; align-items:center; justify-content:center; padding:7rem 1.5rem 4rem; overflow:hidden;
+    background:
+      radial-gradient(circle at 18% 15%, color-mix(in srgb, var(--lavender) 16%, transparent), transparent 55%),
+      radial-gradient(circle at 85% 80%, color-mix(in srgb, var(--ember) 12%, transparent), transparent 50%),
+      var(--bg); }
+
+  /* ---- paper note (the desk note the room opens with) ---- */
+  .note-card{ position:relative; z-index:1; max-width:460px; width:100%;
+    background:
+      repeating-linear-gradient(#faf6ea 0 34px, rgba(120,132,150,.16) 34px 35px),
+      linear-gradient(180deg,#faf6ea,#f3ecdb);
+    border-radius:.25rem .25rem .5rem .5rem; padding:3.4rem 2.4rem 2.6rem;
+    box-shadow: 0 4px 0 rgba(0,0,0,.05) inset, 0 30px 60px rgba(0,0,0,.4), 0 2px 4px rgba(0,0,0,.15);
+    opacity:0; transform:translateY(22px) rotate(-2deg); transition:opacity 1s ease .2s, transform 1s cubic-bezier(.2,.7,.2,1) .2s; }
+  .note-scene.in .note-card{ opacity:1; transform:translateY(0) rotate(-2deg); }
+  .note-card::before{ /* torn top edge */ content:''; position:absolute; top:0; left:0; right:0; height:8px;
+    background:linear-gradient(115deg, transparent 48%, #faf6ea 50%) 0 0/14px 100%,
+               linear-gradient(245deg, transparent 48%, #faf6ea 50%) 0 0/14px 100%;
+    transform:translateY(-6px); opacity:.9; }
+  .note-card .pin{ position:absolute; top:-16px; left:50%; transform:translateX(-50%) rotate(-3deg); width:64px; height:26px;
+    background:color-mix(in srgb, var(--blush) 55%, #fff 15%); opacity:.88; box-shadow:0 6px 10px rgba(0,0,0,.25);
+    clip-path:polygon(4% 0,96% 0,100% 100%,0 100%); }
+  .note-card .pin::after{ content:''; position:absolute; inset:0; background:repeating-linear-gradient(115deg, rgba(255,255,255,.35) 0 2px, transparent 2px 6px); }
+  .note-card h1{ font-family:'Caveat',var(--font-display); font-weight:700; color:#2c2620; font-size:clamp(1.9rem,4.4vw,2.5rem);
+    line-height:1.32; margin:0 0 1.1rem; letter-spacing:.01em; transform:rotate(.3deg); }
+  .note-card p{ margin:0; color:#5c5346; font-size:.92rem; line-height:1.7; font-style:italic; }
+  .note-scroll-cue{ position:relative; z-index:1; margin-top:2.4rem; display:flex; flex-direction:column; align-items:center; gap:.6rem; color:var(--ink-soft);
+    opacity:0; transition:opacity 1s ease .8s; transform: translateX(60px); }
+  .note-scene.in .note-scroll-cue{ opacity:.85; }
+  .note-scroll-cue svg{ width:26px; height:26px; animation:bob 2.6s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(8px);} }
+  .note-scroll-cue span{ font-family:var(--font-mono); font-size:.78rem; letter-spacing:.05em; }
+
+  /* ============ ROOM SCROLL / SCROLLYTELLING ============ */
+  .room-scroll{ position:relative; height:600vh; }
+  .room-frame{ position:sticky; top:0; height:100vh; height:100svh; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--charcoal); }
+  .room-box{ position:relative; width:min(100%, 179.3vh); aspect-ratio:1920/1071; overflow:hidden; border-radius:0; will-change:transform;
+    --fx:50%; --fy:48%; --z:1;
+    transform: scale(var(--z)) translate(calc(50% - var(--fx)), calc(50% - var(--fy)));
+    transition: transform 1.7s cubic-bezier(.22,.7,.16,1); }
+  .room-box img{ width:100%; height:100%; display:block; object-fit:fill; user-select:none; -webkit-user-drag:none; }
+  .room-box[data-chap="desk"]{ --fx:50%; --fy:78%; --z:1.32; }
+  .room-box[data-chap="shelf"]{ --fx:76%; --fy:23%; --z:1.55; }
+  .room-box[data-chap="board"]{ --fx:46%; --fy:22%; --z:1.5; }
+  .room-box[data-chap="corner"]{ --fx:16%; --fy:40%; --z:1.35; }
+  .room-vignette{ position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 140px rgba(0,0,0,.45); }
+
+  .hotspot-layer{ position:absolute; inset:0; pointer-events:none; }
+  .room-hotspot{ position:absolute; transform:translate(-50%,-50%); width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(247,243,237,.55); background:rgba(24,22,28,.42); backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:1rem; line-height:1;
+    opacity:0; pointer-events:none; transform-origin:center; transition:opacity .5s ease, transform .3s ease, background .2s ease;
+  }
+  .room-hotspot::after{ content:''; position:absolute; inset:-8px; border-radius:50%; border:1px solid rgba(247,243,237,.35); animation:pulse 2.6s ease-out infinite; }
+  @keyframes pulse{ 0%{ transform:scale(.8); opacity:.7;} 100%{ transform:scale(1.5); opacity:0;} }
+  .room-hotspot.show{ opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1); }
+  .room-hotspot:hover, .room-hotspot:focus-visible{ background:var(--mint); color:#18161c; border-color:var(--mint); }
+  .room-hotspot:hover::after, .room-hotspot:focus-visible::after{ display:none; }
+
+  .chapter-layer{ position:absolute; inset:0; top:0; height:100%; pointer-events:none; }
+  .chapter{ position:relative; height:100vh; height:100svh; display:flex; align-items:flex-end; pointer-events:none; padding: 0 clamp(1.25rem,6vw,4rem) clamp(2rem,6vh,4rem); }
+  .chapter-card{ pointer-events:auto; max-width:400px; background:var(--bg-raised); border:1px solid var(--line); border-radius:1.1rem; padding:1.6rem 1.7rem; box-shadow:var(--shadow);
+    opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+  .chapter.in .chapter-card{ opacity:1; transform:translateY(0); }
+  .chapter-card .num{ font-family:var(--font-mono); font-size:.75rem; color:var(--mint); letter-spacing:.1em; text-transform:uppercase; margin:0 0 .5rem; }
+  .chapter-card h2{ margin:0 0 .5rem; font-size:1.35rem; letter-spacing:-.01em; }
+  .chapter-card p{ margin:0; color:var(--text-soft); font-size:.92rem; line-height:1.6; }
+  .chapter-card .hint{ margin-top:.7rem; font-family:var(--font-mono); font-size:.72rem; color:var(--text-soft); opacity:.8; }
+  @media (max-width:720px){
+    .chapter{ align-items:flex-start; padding-top: 4.5rem; }
+    .chapter-card{ max-width:100%; }
+    .room-box[data-chap="desk"]{ --fy:74%; --z:1.12; }
+    .room-box[data-chap="shelf"]{ --z:1.25; }
+    .room-box[data-chap="board"]{ --z:1.2; }
+    .room-box[data-chap="corner"]{ --z:1.12; }
+  }
+
+  /* ============ STORY POPUP ============ */
+  .story-pop{ position:fixed; z-index:200; max-width:270px; max-height:calc(100vh - 24px); max-height:calc(100svh - 24px); overflow-y:auto; background:var(--bg-raised); color:var(--text); border:1px solid var(--line); border-radius:.9rem;
+    padding:1.1rem 1.2rem 1.2rem; box-shadow:var(--shadow); opacity:0; visibility:hidden; transform:translateY(6px) scale(.97); transition:opacity .22s ease, transform .22s ease, visibility 0s .22s; }
+  .story-pop.show{ opacity:1; visibility:visible; transform:translateY(0) scale(1); transition:opacity .22s ease, transform .22s ease; }
+  .story-pop .close{ position:absolute; top:.4rem; right:.5rem; width:26px; height:26px; border-radius:50%; border:none; background:transparent; color:var(--text-soft); font-size:1.1rem; line-height:1; }
+  .story-pop .close:hover{ color:var(--text); }
+  .story-pop .eyebrow2{ font-family:var(--font-mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--blush); margin:0 0 .4rem; padding-right:1.4rem; }
+  .story-pop .txt{ margin:0; font-size:.9rem; line-height:1.55; }
+  .story-pop .txt ul{ margin:0; padding-left:1.1rem; }
+  .story-pop .txt li{ margin:.2rem 0; }
+
+  /* ============ LIBRARY ============ */
+  .library-section{ position:relative; padding:5rem clamp(1.25rem,6vw,4rem) 6rem; }
+  .shelf-row{ max-width:980px; margin:0 auto; display:flex; align-items:flex-end; justify-content:center; gap:clamp(.5rem,1.6vw,1rem); flex-wrap:wrap; padding-bottom:.6rem; border-bottom:10px solid var(--bg-raised); border-radius:0 0 .4rem .4rem; }
+  .book{ position:relative; width:clamp(38px,7vw,54px); height:clamp(150px,20vw,210px); border-radius:.3rem .3rem 0 0; display:flex; align-items:flex-end; justify-content:center; padding-bottom:.9rem;
+    box-shadow:inset -6px 0 10px rgba(0,0,0,.15), 0 6px 14px rgba(0,0,0,.18); cursor:pointer; transform:translateY(0); transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+    border:none; }
+  .book:hover, .book:focus-visible{ transform:translateY(-14px); }
+  .book span{ writing-mode:vertical-rl; transform:rotate(180deg); font-family:var(--font-mono); font-size:.72rem; letter-spacing:.06em; color:rgba(24,22,28,.82); font-weight:600; }
+  .book-caption{ max-width:520px; margin:1.6rem auto 0; text-align:center; min-height:2.6em; color:var(--text-soft); font-size:.92rem; line-height:1.5; transition:opacity .25s ease; }
+
+  /* ============ OUTRO ============ */
+  .outro{ position:relative; padding:6rem clamp(1.25rem,6vw,4rem) 7rem; text-align:center; }
+  .outro-door{ width:74px; height:100px; margin:0 auto 1.6rem; position:relative; perspective:400px; }
+  .outro-door .leaf{ position:absolute; inset:0; border-radius:6px 6px 3px 3px; background:linear-gradient(180deg,#4a3627,#2c2118); transform-origin:left center; transition:transform .5s ease; box-shadow:inset 0 0 20px rgba(0,0,0,.4); }
+  .outro-door .leaf::after{ content:''; position:absolute; right:8px; top:50%; width:6px; height:6px; border-radius:50%; background:#e8c88a; }
+  .outro:hover .outro-door .leaf, .outro-door:focus-within .leaf{ transform: rotateY(-55deg); }
+  .outro h2{ margin:0 0 .7rem; font-size:clamp(1.4rem,3vw,1.9rem); letter-spacing:-.01em; }
+  .outro p{ max-width:44ch; margin:0 auto 2rem; color:var(--text-soft); line-height:1.65; }
+  .btn-primary{ position:relative; display:inline-flex; align-items:center; gap:.6rem; background:var(--ink); color:var(--charcoal); border:none; padding:.95rem 1.7rem; border-radius:3rem; font-weight:700; font-size:.98rem; box-shadow:0 8px 24px rgba(0,0,0,.18); transition:transform .25s ease, box-shadow .25s ease; text-decoration:none; }
+  html[data-theme="dark"] .btn-primary{ background:var(--ink); color:var(--charcoal); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(0,0,0,.28); }
+  .btn-primary svg{ width:16px; height:16px; }
+</style>
+</head>
+<body>
+
+<a href="#roomScroll" class="skip-link">Skip to the room</a>
+
+<!-- ============ DOOR OPENING INTRO ============ -->
+<div id="doorIntro" aria-hidden="true">
+  <div class="glow"></div>
+  <div class="panel left"><span class="knob"></span></div>
+  <div class="panel right"><span class="knob"></span></div>
+  <p class="door-caption">opening the door…</p>
+  <button id="introSkip">Skip</button>
+</div>
+
+<header class="site-nav" id="siteNav">
+  <a href="index.html" class="brand">
+    <svg class="back-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    menna<span class="dot">.</span>
+  </a>
+  <div class="nav-right">
+    <a href="index.html#home-map" class="home-link">Back to the home map</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ NOTE SCENE ============ -->
+  <section class="note-scene" id="noteScene">
+    <div class="note-card">
+      <span class="pin" aria-hidden="true"></span>
+      <h1>“Before I show you what I've built, I'd like to show you what built me.”</h1>
+      <p>Scroll down. The camera will do the walking, through the desk, the shelf, the corkboard, and the corner where it all happens.</p>
+    </div>
+    <div class="note-scroll-cue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      <span>keep scrolling</span>
+    </div>
+  </section>
+
+  <!-- ============ ROOM SCROLL ============ -->
+  <div class="room-scroll" id="roomScroll">
+    <div class="room-frame">
+      <div class="room-box" id="roomBox" data-chap="wide">
+        <img src="about-room.jpg" alt="Illustrated cozy workspace with a desk, laptop, corkboard, bookshelf, camera, and reading chair.">
+        <div class="room-vignette" aria-hidden="true"></div>
+        <div class="hotspot-layer" id="hotspotLayer"></div>
+      </div>
+    </div>
+    <div class="chapter-layer">
+      <div class="chapter" data-chap="desk">
+        <div class="chapter-card">
+          <p class="num">Chapter 1</p>
+          <h2>The desk</h2>
+          <p>This is command central — where most of my days actually happen. Tap what catches your eye.</p>
+          <p class="hint">↑ tap the glowing dots on the photo</p>
+        </div>
+      </div>
+      <div class="chapter" data-chap="shelf">
+        <div class="chapter-card">
+          <p class="num">Chapter 2</p>
+          <h2>The shelf</h2>
+          <p>A camera, a lantern, and a sign I wrote for myself more than anyone else.</p>
+          <p class="hint">↑ tap the glowing dots on the photo</p>
+        </div>
+      </div>
+      <div class="chapter" data-chap="board">
+        <div class="chapter-card">
+          <p class="num">Chapter 3</p>
+          <h2>The corkboard</h2>
+          <p>Every stop shaped who I am today. These four pins are where it started.</p>
+          <p class="hint">↑ tap the glowing dots on the photo</p>
+        </div>
+      </div>
+      <div class="chapter" data-chap="corner">
+        <div class="chapter-card">
+          <p class="num">Chapter 4</p>
+          <h2>The reading corner</h2>
+          <p>Where I slow down. Most of what ends up on my desk started here first.</p>
+          <p class="hint">↑ tap the glowing dots on the photo</p>
+        </div>
+      </div>
+      <div class="chapter" data-chap="wide">
+        <div class="chapter-card">
+          <p class="num">One last look</p>
+          <h2>The whole room</h2>
+          <p>Every corner, every object — together, they're the room that built me.</p>
+        </div>
+      </div>
+      <div class="chapter" data-chap="wide" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- ============ LIBRARY ============ -->
+  <section class="library-section" id="librarySection">
+    <div class="section-caption">
+      <span class="eyebrow">One wall of books</span>
+      <h2>The library</h2>
+      <p>Not random books — each one is part of how I think. Tap a spine.</p>
+    </div>
+    <div class="shelf-row" id="shelfRow"></div>
+    <p class="book-caption" id="bookCaption">Tap a book to see what it taught me.</p>
+  </section>
+
+  <!-- ============ OUTRO ============ -->
+  <section class="outro">
+    <div class="outro-door" tabindex="0" aria-hidden="true"><div class="leaf"></div></div>
+    <span class="eyebrow" style="justify-content:center;">End of this room</span>
+    <h2>That's what built me.</h2>
+    <p>The rest of the house is still being furnished, room by room. Thanks for spending a few minutes in mine.</p>
+    <a class="btn-primary" href="index.html#home-map">
+      Back to the home map
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+</main>
+
+<!-- ============ STORY POPUP (reused for every hotspot) ============ -->
+<div class="story-pop" id="storyPop" role="dialog" aria-hidden="true">
+  <button class="close" id="storyPopClose" aria-label="Close">&times;</button>
+  <p class="eyebrow2" id="storyPopEyebrow"></p>
+  <div class="txt" id="storyPopText"></div>
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- THEME TOGGLE ---------- */
+  var root = document.documentElement;
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- DOOR-OPEN SOUND (synthesized, no audio file needed) ---------- */
+  var soundPlayed = false;
+  function playDoorSound(){
+    if(soundPlayed) return; soundPlayed = true;
+    try{
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      var ctx = new Ctx();
+      if(ctx.state === 'suspended'){ ctx.resume(); }
+      var t0 = ctx.currentTime;
+      var osc = ctx.createOscillator(); osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(190, t0);
+      osc.frequency.exponentialRampToValueAtTime(65, t0 + 0.9);
+      var filt = ctx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 320; filt.Q.value = 5;
+      var gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, t0);
+      gain.gain.exponentialRampToValueAtTime(0.16, t0 + 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 1.0);
+      osc.connect(filt); filt.connect(gain); gain.connect(ctx.destination);
+      osc.start(t0); osc.stop(t0 + 1.05);
+      var t1 = t0 + 0.95;
+      var osc2 = ctx.createOscillator(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(85, t1);
+      var g2 = ctx.createGain(); g2.gain.setValueAtTime(0.22, t1); g2.gain.exponentialRampToValueAtTime(0.0001, t1 + 0.3);
+      osc2.connect(g2); g2.connect(ctx.destination); osc2.start(t1); osc2.stop(t1 + 0.32);
+    }catch(e){ /* audio unavailable or blocked — the visual still works fine */ }
+  }
+  ['pointerdown','keydown','touchstart'].forEach(function(evt){
+    window.addEventListener(evt, function once(){ playDoorSound(); window.removeEventListener(evt, once); }, {once:true});
+  });
+
+  /* ---------- DOOR INTRO SEQUENCE ---------- */
+  var doorIntro = document.getElementById('doorIntro');
+  var main = document.getElementById('main');
+  var nav = document.getElementById('siteNav');
+  var introDone = false;
+  function finishDoorIntro(){
+    if(introDone) return; introDone = true;
+    doorIntro.classList.add('hide');
+    main.classList.add('ready');
+    nav.classList.add('in');
+    setTimeout(function(){ doorIntro.style.display = 'none'; }, reduced ? 0 : 1500);
+  }
+  function runDoorIntro(){
+    if(reduced){ finishDoorIntro(); return; }
+    requestAnimationFrame(function(){
+      doorIntro.classList.add('opening');
+      playDoorSound();
+    });
+    setTimeout(finishDoorIntro, 1250);
+  }
+  document.getElementById('introSkip').addEventListener('click', finishDoorIntro);
+  window.addEventListener('load', function(){ setTimeout(runDoorIntro, 250); });
+  setTimeout(function(){ if(!introDone) runDoorIntro(); }, 1400);
+
+  /* ---------- NOTE SCENE REVEAL ---------- */
+  var noteScene = document.getElementById('noteScene');
+  setTimeout(function(){ noteScene.classList.add('in'); }, reduced ? 0 : 900);
+
+  /* ---------- HOTSPOT DATA ---------- */
+  var hotspots = [
+    { id:'laptop',   chap:'desk',   x:38, y:67, icon:'💻', title:'Frontend Developer',
+      html:'<p>I love bringing ideas to life through code, animations, and thoughtful user experiences.</p>' },
+    { id:'tablet',   chap:'desk',   x:27, y:93, icon:'🖊️', title:'UI / Product design',
+      html:'<p>I am a visualizer before I am a builder.</p>' },
+    { id:'notebook', chap:'desk',   x:54, y:83, icon:'📓', title:'Always learning',
+      html:'<p>I genuinely enjoy learning new things. Some days it is AI, some days it is animation, design systems, or a completely different creative hobby. I do not believe learning has a finish line.</p>' },
+    { id:'camera',   chap:'desk',   x:70, y:83, icon:'📷', title:'Photography',
+      html:'<p>For me, photography is another form of journaling. Sometimes it is capturing a moment that says everything words cannot. Looking back at those photos reminds me of the person I was in that chapter of my life.</p>' },
+    { id:'journal',  chap:'desk',   x:85, y:90, icon:'📔', title:'Crafts & keepsakes',
+      html:'<p>I do not just journal with words, but with drawings, little keepsakes, photographs, and anything that captures a moment and helps reduce my overthinking. This journal holds every chapter of my life in one place, making it feel less like a collection of memories and more like a movie I am lucky enough to direct.</p>' },
+    { id:'reminders',chap:'desk',   x:42, y:93, icon:'📝', title:'What I try to live by',
+      html:'<ul><li>Leave a meaningful mark.</li><li>Create things worth remembering.</li><li>Help others grow—and grow with them.</li><li>Stay creative in everything I do.</li><li>Find beauty in the little things.</li></ul>' },
+    { id:'turtle',   chap:'desk',   x:18, y:80, icon:'🐢', title:'Teaching',
+      html:'<p>The Rabbit and the Turtle, a story that taught me great things are built one step at a time. That is why I love teaching. Whether I am introducing someone to Python, helping them write their first résumé, or cheering them on at the gym, a reminder that small progress takes time."</p>' },
+
+    { id:'shelf',    chap:'shelf',  x:72, y:31, icon:'💡', title:'Keep the light burning',
+      html:'<p>I never dreamed of being the person with all the answers. I just wanted to be someone others felt comfortable turning to. Teaching, helping, and celebrating other people\u2019s wins genuinely make me happy. I guess that\u2019s my version of being the friendly neighborhood Spider-Woman.</p>' },
+    { id:'painting', chap:'shelf',  x:88, y:20, icon:'🎨', title:'Why I keep this here',
+      html:'<p>Drawing this changed the way I think. The smallest strokes can become the reason something very beautiful exists. Whenever I doubt that my small efforts matter, I look at this painting and remember they do.</p>' },
+
+    { id:'pin1', chap:'board', x:41, y:11, icon:'📍', title:'Chapter 1',
+      html:'<p>Life was beautifully simple. I was the kid who woke up excited for school, spent afternoons playing football until I was exhausted, then came home determined to keep my grades high. Around that time I also discovered drawing, and before I knew it, I was entering competitions in both. I did not win anything remarkable, but I found something far more important—I loved learning simply because it was fun.</p>' },
+    { id:'pin2', chap:'board', x:49, y:18, icon:'📍', title:'Chapter 2',
+      html:'<p>As I grew older, life became more complicated. Suddenly there were endless paths to explore, and I realized I could not chase all of them at once. I chose to focus on one goal: earning a place at Alexandria STEM High School. I poured everything into that dream while keeping my other passions alive whenever I could. That chapter ended with one of my proudest milestones—I ranked 120th out of more than 15,000 applicants and earned my place.</p>' },
+    { id:'pin3', chap:'board', x:39, y:32, icon:'📍', title:'Chapter 3',
+      html:'<p>Moving away from my family to join STEM felt like starting a completely new game on the hardest difficulty. The competition was bigger, expectations were higher, and I constantly questioned whether I belonged. But those three years shaped me more than any others. I started my school\u2019s first girls\u2019 football club, became the CEO of one of the most prestigious student clubs, joined competitions, and chased international opportunities. I was rejected from every single one of them. At the time, those rejections broke me into pieces. Looking back, they quietly redirected me toward the path I was meant to follow.</p>' },
+    { id:'pin4', chap:'board', x:46, y:40, icon:'📍', title:'Chapter 4',
+      html:'<p>I arrived at E-JUST in a major I honestly wasn\u2019t sure was right for me. Today, I\u2019m building this website to tell my story. University became the chapter where everything I had learned started coming together. I discovered that I loved teaching just as much as creating. I became an instructor for Python, C++, web development, robotics, Scratch, and STEM. Alongside that, I found myself designing logos, videos, websites, social media content, and mentoring people as a freelancer. For the first time, all the different pieces of me stopped competing with one another—they started working together. And this chapter is still being written.</p>' },
+
+    { id:'chair', chap:'corner', x:17, y:56, icon:'📖', title:'The quiet corner',
+      html:'<p>This is my favorite corner of the room. Not because I spend every day here, but because it reminds me to slow down. In a world that celebrates constant productivity, I have learned that some of my best ideas arrive when I stop trying to find them. Sometimes the most meaningful progress begins with simply sitting still and reading a new book.</p>' },
+    { id:'window',chap:'corner', x:8,  y:16, icon:'☀️', title:'Morning light',
+      html:'<p>Best ideas usually show up at 9am, with coffee and quiet because I am forever a morning person.</p>' }
+  ];
+
+  var layer = document.getElementById('hotspotLayer');
+  hotspots.forEach(function(h){
+    var b = document.createElement('button');
+    b.className = 'room-hotspot';
+    b.dataset.chap = h.chap;
+    b.style.left = h.x + '%';
+    b.style.top = h.y + '%';
+    b.setAttribute('aria-label', h.title);
+    b.setAttribute('aria-expanded','false');
+    b.innerHTML = h.icon;
+    b.addEventListener('click', function(e){ openStoryPop(b, h); });
+    layer.appendChild(b);
+    h.el = b;
+  });
+
+  /* ---------- STORY POPUP ---------- */
+  var pop = document.getElementById('storyPop');
+  var popEyebrow = document.getElementById('storyPopEyebrow');
+  var popText = document.getElementById('storyPopText');
+  var popCloseBtn = document.getElementById('storyPopClose');
+  var activeHotspotBtn = null;
+
+  function openStoryPop(btn, data){
+    popEyebrow.textContent = data.title;
+    popText.innerHTML = data.html;
+    pop.setAttribute('aria-hidden','false');
+    pop.classList.add('show');
+    activeHotspotBtn = btn;
+    btn.setAttribute('aria-expanded','true');
+    var r = btn.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var popW = 270, popH = pop.offsetHeight || 140;
+    // Popup can never be taller than the viewport itself (minus margins) —
+    // if it is, it just fills the available height and scrolls internally.
+    var maxPopH = vh - 24;
+    if(popH > maxPopH){ popH = maxPopH; }
+    var left = r.left + r.width/2 - popW/2;
+    var top = r.top - popH - 16;
+    if(top < 12){ top = r.bottom + 16; }
+    // If placing it below the hotspot would also run off the bottom, or the
+    // popup is simply taller than the space above, clamp it back into view
+    // instead of letting it spill past the viewport edge.
+    if(top + popH > vh - 12){ top = vh - popH - 12; }
+    if(top < 12){ top = 12; }
+    left = Math.max(12, Math.min(left, window.innerWidth - popW - 12));
+    pop.style.left = left + 'px';
+    pop.style.top = top + 'px';
+  }
+  function closeStoryPop(){
+    pop.classList.remove('show');
+    pop.setAttribute('aria-hidden','true');
+    if(activeHotspotBtn){ activeHotspotBtn.setAttribute('aria-expanded','false'); activeHotspotBtn = null; }
+  }
+  popCloseBtn.addEventListener('click', closeStoryPop);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeStoryPop(); });
+  document.addEventListener('click', function(e){
+    if(!pop.classList.contains('show')) return;
+    if(pop.contains(e.target) || (activeHotspotBtn && activeHotspotBtn.contains(e.target))) return;
+    closeStoryPop();
+  });
+
+  /* ---------- CHAPTER SCROLL OBSERVER ---------- */
+  var roomBox = document.getElementById('roomBox');
+  var chapters = document.querySelectorAll('.chapter');
+  var chapList = Array.prototype.slice.call(chapters);
+  var currentChap = 'wide';
+  function setChapter(name){
+    if(name === currentChap) return;
+    currentChap = name;
+    roomBox.setAttribute('data-chap', name);
+    hotspots.forEach(function(h){ h.el.classList.toggle('show', h.chap === name); });
+    if(pop.classList.contains('show')) closeStoryPop();
+  }
+
+  // Chapter-card fade-in stays IntersectionObserver-driven — that part
+  // was never buggy, it's purely cosmetic and fine to miss a frame on.
+  var cardObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ en.target.classList.toggle('in', en.isIntersecting); });
+  }, { threshold:[0,0.5,1] });
+  chapters.forEach(function(c){ cardObserver.observe(c); });
+
+  // The room image's framing (data-chap) is instead computed straight from
+  // scroll position on every scroll event. IntersectionObserver only fires
+  // when a threshold is *crossed*, so a fast scroll, a scrollbar drag, or
+  // jumping to the top (Home key / "back to top") can skip past a chapter's
+  // 50% threshold entirely and leave the room stuck zoomed into whatever
+  // chapter last happened to cross it. Computing directly from the final
+  // scroll position on every frame means there's no state to miss — the
+  // room always re-derives the exact right framing, including resetting to
+  // the original full "wide" shot above the first chapter, same as on load.
+  function updateActiveChapter(){
+    var mid = window.innerHeight / 2;
+    for(var i=0;i<chapList.length;i++){
+      var rect = chapList[i].getBoundingClientRect();
+      if(rect.top <= mid && rect.bottom > mid){ setChapter(chapList[i].dataset.chap); return; }
+    }
+    // Viewport's midpoint isn't inside any chapter — we're either above the
+    // first chapter (still up near the note) or below the last one. Both
+    // are the room's resting state: the full, uncropped "wide" shot.
+    setChapter('wide');
+  }
+  var chapterTicking = false;
+  function onChapterScroll(){
+    if(chapterTicking) return;
+    chapterTicking = true;
+    requestAnimationFrame(function(){ updateActiveChapter(); chapterTicking = false; });
+  }
+  window.addEventListener('scroll', onChapterScroll, {passive:true});
+  window.addEventListener('resize', onChapterScroll);
+  updateActiveChapter();
+
+
+  /* ---------- LIBRARY SHELF ---------- */
+  var books = [
+    { label:'Python', color:'#9bd9c6', caption:'Where logic became a language I could actually speak.' },
+    { label:'Design', color:'#b6a6e8', caption:'Design helps me communicate before words do.' },
+    { label:'Psychology', color:'#f0b7c3', caption:'Understanding why people do what they do.' },
+    { label:'Storytelling', color:'#e8ab5e', caption:'Every project has one — I just have to find it.' },
+    { label:'AI', color:'#9bd9c6', caption:'Teaching machines to think has taught me to think slower.' },
+    { label:'Photography', color:'#b6a6e8', caption:'Freezing the details words rush past.' },
+    { label:'Branding', color:'#f0b7c3', caption:'How an idea learns to introduce itself.' },
+    { label:'Education', color:'#e8ab5e', caption:'Programming taught me logic. Teaching taught me patience.' }
+  ];
+  var shelfRow = document.getElementById('shelfRow');
+  var bookCaption = document.getElementById('bookCaption');
+  books.forEach(function(bk){
+    var el = document.createElement('button');
+    el.className = 'book';
+    el.style.background = bk.color;
+    el.innerHTML = '<span>' + bk.label + '</span>';
+    el.setAttribute('aria-label', bk.label + ' — tap to read');
+    el.addEventListener('click', function(){ bookCaption.style.opacity = 0; setTimeout(function(){ bookCaption.textContent = bk.caption; bookCaption.style.opacity = 1; }, 160); });
+    el.addEventListener('mouseenter', function(){ bookCaption.style.opacity = .6; });
+    el.addEventListener('mouseleave', function(){ if(bookCaption.style.opacity == .6) bookCaption.style.opacity = 1; });
+    shelfRow.appendChild(el);
+  });
+
+})();
+</script>
+</body>
+</html>
